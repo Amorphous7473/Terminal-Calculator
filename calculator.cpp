@@ -49,8 +49,69 @@ int modulo(vector<int> nums)
     }
     return ans;
 }
-
-//The main Class
+int mixed() {
+    string n;
+    int number, answer = 1, count = 0, arithmetic = 0;
+    cout << "In this mode, the equations will be calculated from the left to the right. It will not follow BODMAS Rule\n";
+    cin >> n;
+    for (char i : n) {
+        if (isdigit(i)) {
+            number = i - '0'; // Convert char to int
+            arithmetic = 0;
+            continue;
+        }
+        else if (i == '+') {
+            answer += number;
+            count++;
+            arithmetic++;
+            if (arithmetic > 1) {
+                cout << "Found an extra arithmetic " << "'" << "+" << "'" << ". Removing " << "+";
+            }
+            continue;
+        }
+        else if (i == '-') {
+            answer -= number;
+            count++;
+            arithmetic++;
+            if (arithmetic > 1) {
+                cout << "Found an extra arithmetic " << "'" << "-" << "'" << ". Removing " << "-";
+            }
+            continue;
+        }
+        else if (i == '*') {
+            answer *= number;
+            arithmetic++;
+            if (arithmetic > 1) {
+                cout << "Found an extra arithmetic " << "'" << "*" << "'" << ". Removing " << "*";
+            }
+            continue;
+        }
+        else if (i == '/') {
+            if (number == 0) {
+                cout << "Error: Division by zero is not allowed.\n";
+                return numeric_limits<int>::max(); // Return a large number to indicate error
+            }
+            answer /= number;
+            arithmetic++;
+            if (arithmetic > 1) {
+                cout << "Found an extra arithmetic " << "'" << "/" << "'" << ". Removing " << "/";
+            }
+            continue;
+        }
+        else if (i == '%') {
+            answer %= number;
+            arithmetic++;
+            if (arithmetic > 1) {
+                cout << "Found an extra arithmetic " << "'" << "%" << "'" << ". Removing " << "%";
+            }
+            continue;
+        }
+    }
+    if (count >= 1) {
+        answer--;
+    }
+    return answer;
+}
 int main()
 {
     //Variables
@@ -59,7 +120,7 @@ int main()
     vector<int> nums;
     //Cout Statements
     cout<<"Calculator:\n\nSelect the Type of Arithmetic operations by typing it's serial number";
-    cout<<"\n1.Addition\n2.Subtraction\n3.Multiplication\n4.Division\n5.Modulo\n";
+    cout<<"\n1.Addition\n2.Subtraction\n3.Multiplication\n4.Division\n5.Modulo\n6.Mixed\n";
     while(true)
     {
         cin>>a;
@@ -70,10 +131,15 @@ int main()
         cout<<"Please enter a number: ";
         continue;
         }
-        else if(a>5||a<1)
+        else if(a>6||a<1)
         {
-            cout<<"Please enter a number between 1 and 5: ";
+            cout<<"Please enter a number between 1 and 6: ";
             continue;
+        }
+        else if(a == 6)
+        {
+            cout<<mixed();
+            return 0;
         }
             break;
     }
@@ -128,10 +194,6 @@ int main()
     {
         cout<<modulo(nums);
 
-    }
-    else if(a == 6)
-    {
-        cout<<mixed(nums);
     }
     return 0;
 }
