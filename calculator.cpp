@@ -2,6 +2,7 @@
 #include <iostream>
 #include<vector>
 #include <limits>
+#include<string>
 using namespace std;
 //All Arithmetic Classes
 int addition(vector<int> nums)
