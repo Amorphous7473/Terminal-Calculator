@@ -1,5 +1,7 @@
+#include <cctype>
 #include <iostream>
 #include<vector>
+#include <limits>
 using namespace std;
 //All Arithmetic Classes
 int addition(vector<int> nums)
@@ -13,10 +15,10 @@ int addition(vector<int> nums)
 }
 int subtraction(vector<int> nums)
 {
-    int ans = 0;
-    for(int i: nums)
+    int ans = nums[0];
+    for(int i = 1; i <nums.size(); i++)
     {
-        ans = i - ans;
+        ans -= nums[i];
     }
     return ans;
 }
@@ -47,25 +49,61 @@ int modulo(vector<int> nums)
     }
     return ans;
 }
+
+//The main Class
 int main()
 {
     //Variables
-    int a, i = 0, n = 0;
+    int a, i = 0;
+    string n;
     vector<int> nums;
     //Cout Statements
-    cout<<"Calculator:\n Select the Type of Arithmetic operations by typing it's serial number";
+    cout<<"Calculator:\n\nSelect the Type of Arithmetic operations by typing it's serial number";
     cout<<"\n1.Addition\n2.Subtraction\n3.Multiplication\n4.Division\n5.Modulo\n";
-    if(cin>>a)
+    while(true)
     {
+        cin>>a;
+        if(cin.fail())
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Deletes the garbage text from the buffer
+        cout<<"Please enter a number: ";
+        continue;
+        }
+        else if(a>5||a<1)
+        {
+            cout<<"Please enter a number between 1 and 5: ";
+            continue;
+        }
+            break;
+    }
     cout<<"Press 'Enter' to put the next number and press '=' to calculate the final results\n";
-    while(cin>>n)
+
+    while(true)
     {
-        nums.push_back(n);
-        if(nums[i] == '=')
+        cin>>n;
+        if(n == "=")
         {
             break;
         }
-        i++;
+        bool digit = true;
+        for(char c: n)
+        {
+        if(!isdigit(c))
+        {
+            digit = false;
+            break;
+        }
+        }
+        int blah;
+        if(!digit)
+        {
+            cout<<"Please enter a valid number";
+            continue;
+        }
+        blah = stoi(n);
+        nums.push_back(blah);
+        continue;
     }
     if(a == 1)
     {
@@ -86,11 +124,14 @@ int main()
         cout<<division(nums);
 
     }
-    else if(a == 5 && nums.size() == 2)
+    else if(a == 5)
     {
         cout<<modulo(nums);
 
     }
+    else if(a == 6)
+    {
+        cout<<mixed(nums);
     }
     return 0;
 }
