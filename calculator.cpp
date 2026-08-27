@@ -7,8 +7,8 @@ using namespace std;
 //All Arithmetic Classes
 int addition(vector<int> nums)
 {
-    int ans = 0;
-    for(int i: nums)
+    float ans = 0;
+    for(float i: nums)
     {
         ans += i;
     }
@@ -113,6 +113,8 @@ int mixed() {
     }
     return answer;
 }
+
+//The main function
 int main()
 {
     //Variables
@@ -156,10 +158,13 @@ int main()
         bool digit = true;
         for(char c: n)
         {
+        if(c != '.')
+        {
         if(!isdigit(c))
         {
             digit = false;
             break;
+        }
         }
         }
         int blah;
@@ -168,7 +173,7 @@ int main()
             cout<<"Please enter a valid number";
             continue;
         }
-        blah = stoi(n);
+        blah = stof(n);
         nums.push_back(blah);
         continue;
     }
