@@ -27,7 +27,7 @@ float subtraction(vector<float> nums)
 float multiplication(vector<float> nums)
 {
     float ans = 1;
-    for(int i: nums)
+    for(float i: nums)
     {
         ans *= i;
     }
@@ -35,10 +35,10 @@ float multiplication(vector<float> nums)
 }
 float division(vector<float> nums)
 {
-    float ans = 1;
-    for(int i: nums)
+    float ans = nums[0];
+    for(int i = 1; i<nums.size(); i++)
     {
-        ans /= i;
+        ans /= nums[i];
     }
     return ans;
 }
@@ -81,7 +81,7 @@ int main()
         bool digit = true;
         for(char c: n)
         {
-        if(c != '.')
+        if(c != '.' && c!= '-')
         {
         if(!isdigit(c))
         {
@@ -100,6 +100,11 @@ int main()
         nums.push_back(blah);
         continue;
     }
+        if(nums.empty())
+    {
+        cout << "No numbers entered.\n";
+        return -1;
+    }
     if(a == 1)
     {
         cout<<addition(nums);
@@ -117,11 +122,6 @@ int main()
     else if(a == 4)
     {
         cout<<division(nums);
-
-    }
-    else if(a == 5)
-    {
-        cout<<modulo(nums);
 
     }
     return 0;
